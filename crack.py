@@ -11,7 +11,9 @@ parser = argparse.ArgumentParser(description='CompressedCrack v1.0.0 by ThanhMin
 parser.add_argument('-i','--input', help='Insert the file path of compressed file', required=True)
 parser.add_argument('rules', nargs='*', help='<min> <max> <character>')
 
+# Const Character
 CHARACTER = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()'
+
 class Check:
     def __init__(self, Arg):
         self.type = None
@@ -19,14 +21,14 @@ class Check:
         self.startLength = None
         self.maxLength = None
         self.character = None
-        # Kiểm tra rules
+        # Check Rules
         if len(Arg) >= 4:
             self.getData(Arg)
             self.rules = True
         elif len(Arg) == 0 or len(Arg) > 2:
             parser.print_help()
             parser.exit()
-        # Kiểm tra file có tồn tại hay không
+        # Check File Exist
         if (self.CheckFileExist(Arg)):
             self.getType(Arg)
         else:
@@ -83,7 +85,6 @@ class Handler:
             self.FileCrack = rarfile.RarFile(self.location)
 
     def Brute(self,password):
-        # Brute với các pass đưa vào, nếu .zip thì phải encode string password thành utf-8 vì module zipfile bắt buộc
         try:
             if self.type == '.zip':
                 tryPass = password.encode()
@@ -101,7 +102,6 @@ class Handler:
     def CheckRules(self):
         self.start_time = time.clock()
         print ('Cracking...')
-        # Nếu không có rules thì lặp vô hạn
         if not self.rules:
             length = 1
             while True:
@@ -109,7 +109,6 @@ class Handler:
                 if self.result:
                     return
                 length += 1
-        # Nếu có rules thì sẽ lặp từ độ dài <min> <max> của các argument đưa vào
         else:
             for length in range(self.startLength, self.maxLength + 1):
                 self.SendRequest(length)
