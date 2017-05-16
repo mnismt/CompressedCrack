@@ -11,8 +11,7 @@ parser = argparse.ArgumentParser(description='CompressedCrack v1.0.0 by ThanhMin
 parser.add_argument('-i','--input', help='Insert the file path of compressed file', required=True)
 parser.add_argument('rules', nargs='*', help='<min> <max> <character>')
 
-#CHARACTER = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()'
-CHARACTER = 'abcdefghijklmnopqrstuvwxyz'
+CHARACTER = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()'
 class Check:
     def __init__(self, Arg):
         self.type = None
