@@ -13,7 +13,7 @@ Author: Thanh Minh
 ```
 apt-get -y install git
 git clone https://github.com/thanhminh6996/CompressedCrack.git
-cd ./Synopsis
+cd ./CompressedCrack
 ```
 ## Use
 ```
