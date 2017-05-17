@@ -7,12 +7,12 @@ import argparse
 from itertools import product
 import time
 
-parser = argparse.ArgumentParser(description='CompressedCrack v1.0.0 by ThanhMinh', epilog='Use the -h for help')
+parser = argparse.ArgumentParser(description='CompressedCrack v1.0.1 by ThanhMinh', epilog='Use the -h for help')
 parser.add_argument('-i','--input', help='Insert the file path of compressed file', required=True)
 parser.add_argument('rules', nargs='*', help='<min> <max> <character>')
 
 # Const Character
-CHARACTER = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()'
+CHARACTER = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_+=~`[]{}|\\:;\"'<>,.?/"
 
 class Check:
     def __init__(self, Arg):
