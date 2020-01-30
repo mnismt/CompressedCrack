@@ -28,10 +28,3 @@ optional arguments:
                         Insert the file path of compressed file
                         
 ```                       
-
-## Example:
-### Without Rules:
-![Alt](https://s3-ap-southeast-1.amazonaws.com/kipalog.com/yzxax7vwym_1.png)
-
-### With Rules:
-![Alt](https://s3-ap-southeast-1.amazonaws.com/kipalog.com/mjj8814d1n_3.png)
