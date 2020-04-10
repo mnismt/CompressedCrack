@@ -93,14 +93,14 @@ class Handler:
             print (tryPass)
             self.FileCrack.extractall(pwd=tryPass)
             print ('Complete')
-            print('Time:',time.clock() - self.start_time,'s')
+            print('Time:',time.process_time() - self.start_time,'s')
             print ('Password:',password)
             self.result = True
         except:
             pass
 
     def CheckRules(self):
-        self.start_time = time.clock()
+        self.start_time = time.process_time()
         print ('Cracking...')
         if not self.rules:
             length = 1
