@@ -88,7 +88,7 @@ def main():
     Main function to parse command line arguments and initiate the brute force process.
     """
     parser = argparse.ArgumentParser(
-        description="Brute force password cracker for compressed files.")
+        description="Crack password-protected archives using brute force.")
     parser.add_argument("file_path", help="Path to the compressed file.")
     parser.add_argument("--min-length", type=int, default=1,
                         help="Minimum password length.")
