@@ -55,14 +55,16 @@ If no character types are selected, the script will use the combination of all d
 
 ## Examples
 
-1. Crack a password-protected ZIP file with default settings:
+1. Crack a password-protected RAR file with default settings:
 
 ```
-python main.py archive.zip
+python main.py archive.rar
 ```
 
-2. Crack a password-protected RAR file with a minimum password length of 4 characters, maximum password length of 6 characters, and verbose output:
+2. Crack a password-protected zip file with a minimum password length of 3 characters, maximum password length of 5 characters, verbose output, and the custom character set `abcdef12345`:
 
 ```
-python main.py --min-length 4 --max-length 6 --verbose archive.rar
+python main.py --min-length 3 --max-length 5 --verbose archive.zip
 ```
+
+![Example](./example.gif)
