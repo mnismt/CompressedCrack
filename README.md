@@ -1,14 +1,14 @@
 # CompressedCrack
 
-CompressedCrack is a command-line tool that performs a brute force attack to crack the password of a compressed file. It generates password combinations based on user-defined character sets and length range, and attempts to extract the archive using each generated password until the correct password is found.
+CompressedCrack is a command-line tool that utilizes the brute-force method to crack any password-protected compressed file. It generates password combinations based on user-defined character sets and length range, and attempts to extract the archive using each generated password until the correct password is found.
 
 ## Features
 
-- Supports various compressed file formats (e.g., zip, rar, 7z) using the patoolib library
-- Allows customization of character sets (letters, numbers, special characters)
-- Configurable minimum and maximum password lengths
-- Displays the found password, total number of attempts, and execution time
-- Verbose mode for detailed output during the cracking process
+- Supports various compressed file formats (e.g., zip, rar, 7z) using `patoolib` library.
+- Allows customization of character sets (letters, numbers, special characters).
+- Configurable minimum and maximum password lengths.
+- Displays the found password, total number of attempts, and execution time.
+- Verbose mode for detailed output during the cracking process.
 
 ## Requirements
 
@@ -43,7 +43,7 @@ options:
 
 ### Customizing Character Sets
 
-uring execution, the script will prompt the user to include letters, numbers, and special characters in the password generation process. For each selected character type, the user can choose to use the default set or provide a custom set.
+When the script is started, the user will be asked for selecting character sets, including letters, numbers and special characters.
 
 Default character sets:
 
@@ -55,13 +55,7 @@ If no character types are selected, the script will use the combination of all d
 
 ## Examples
 
-1. Crack a password-protected RAR file with default settings:
-
-```
-python main.py archive.rar
-```
-
-2. Crack a password-protected zip file with a minimum password length of 3 characters, maximum password length of 5 characters, verbose output, and the custom character set `abcdef12345`:
+Crack a password-protected file `archive.zip` with a minimum password length of 3 characters, maximum password length of 5 characters, verbose output, and the custom character set is `abcdef12345`:
 
 ```
 python main.py --min-length 3 --max-length 5 --verbose archive.zip
