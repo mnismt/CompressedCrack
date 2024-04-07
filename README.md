@@ -1,5 +1,7 @@
 # CompressedCrack
 
+![Banner](./assets/banner.png)
+
 CompressedCrack is a command-line tool that utilizes the brute-force method to crack any password-protected compressed file. It generates password combinations based on user-defined character sets and length range, and attempts to extract the archive using each generated password until the correct password is found.
 
 ## Features
@@ -61,4 +63,4 @@ Crack a password-protected file `archive.zip` with a minimum password length of 
 python main.py --min-length 3 --max-length 5 --verbose archive.zip
 ```
 
-![Example](./example.gif)
+![Example](./assets/example.gif)
