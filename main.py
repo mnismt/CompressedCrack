@@ -36,9 +36,13 @@ def test_archive_password(file_path, password, verbose):
         return False
 
 
+def calculate_password_combinations(start_length, max_length, character_set):
+    return sum(len(character_set) ** i for i in range(start_length, max_length + 1))
+
+
 def brute_force_password(file_path, start_length, max_length, character_set, verbose):
     """
-    Generates password combinations within specified length range and character set, 
+    Generates password combinations within specified length range and character set,
     testing each against the provided archive.
 
     Parameters:
@@ -58,6 +62,13 @@ def brute_force_password(file_path, start_length, max_length, character_set, ver
     for length in range(start_length, max_length + 1):
         start_time = time.time()
         password_count = 0
+        # if verbose, print total number of passwords will be generated
+        if verbose:
+            print("-" * 50)
+            print(
+                f"\nGenerating passwords with length {length}...")
+            print(
+                f"\nTotal passwords to be generated: {len(character_set) ** length}")
         for password_tuple in product(character_set, repeat=length):
             password = ''.join(password_tuple)
             password_count += 1
@@ -110,8 +121,13 @@ def main():
             SPECIAL_CHARACTERS, "special characters")
 
     if not character_set:
-        print("No characters selected. Using default character set.")
+        print("\nNo characters selected. Using default character set.")
         character_set = LETTERS + NUMBERS + SPECIAL_CHARACTERS
+
+    # Print the character set to be used
+    print(f"\nCharacter set to be used: {character_set}")
+    print(
+        f"Total password combinations to be tried: {calculate_password_combinations(args.min_length, args.max_length, character_set)}")
 
     overall_start_time = time.time()
     password, total_password_count, subset_time = brute_force_password(
