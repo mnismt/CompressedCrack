@@ -1,30 +1,64 @@
 # CompressedCrack
 
-Compressed Crack is a simple tool to help you crack password zip and rar files.
+CompressedCrack is a command-line tool that utilizes the brute-force method to crack any password-protected compressed file. It generates password combinations based on user-defined character sets and length range, and attempts to extract the archive using each generated password until the correct password is found.
 
-Author: Thanh Minh
+## Features
 
-## Requirements:
+- Supports various compressed file formats (e.g., zip, rar, 7z) using `patoolib` library.
+- Allows customization of character sets (letters, numbers, special characters).
+- Configurable minimum and maximum password lengths.
+- Displays the found password, total number of attempts, and execution time.
+- Verbose mode for detailed output during the cracking process.
 
-[Python 3.x](https://www.python.org/downloads/)
+## Requirements
 
-## Install
+- Python 3.x
+- `patoolib` library
+
+To install the required library, run the following command:
 
 ```
-apt-get -y install git
-git clone https://github.com/thanhminh6996/CompressedCrack.git
-cd ./CompressedCrack
+pip install patoolib
 ```
-## Use
+
+## Usage
+
 ```
-python crack.py -i INPUT [rules [rules ...]]
+main.py [-h] [--min-length MIN_LENGTH] [--max-length MAX_LENGTH] [--verbose] file_path
+
+Crack password-protected archives using brute force.
 
 positional arguments:
-  rules                 <min> <max> <character>
+  file_path             Path to the compressed file.
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
-  -i INPUT, --input INPUT
-                        Insert the file path of compressed file
-                        
-```                       
+  --min-length MIN_LENGTH
+                        Minimum password length.
+  --max-length MAX_LENGTH
+                        Maximum password length.
+  --verbose             Increase output verbosity.
+
+```
+
+### Customizing Character Sets
+
+When the script is started, the user will be asked for selecting character sets, including letters, numbers and special characters.
+
+Default character sets:
+
+- Letters: `abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`
+- Numbers: `0123456789`
+- Special characters: `!@#$%^&\*()-\_+=~[]{}|\:;"'<>,.?\`
+
+If no character types are selected, the script will use the combination of all default character sets.
+
+## Examples
+
+Crack a password-protected file `archive.zip` with a minimum password length of 3 characters, maximum password length of 5 characters, verbose output, and the custom character set is `abcdef12345`:
+
+```
+python main.py --min-length 3 --max-length 5 --verbose archive.zip
+```
+
+![Example](./example.gif)
