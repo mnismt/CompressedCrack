@@ -14,19 +14,20 @@ CompressedCrack is a command-line tool that utilizes the brute-force method to c
 
 ## Requirements
 
-- Python 3.x
-- `patoolib` library
+- Python >= 3.6
 
-To install the required library, run the following command:
+## Installation
+
+You can install CompressedCrack directly from pip using the following command:
 
 ```
-pip install patoolib
+pip install compressedcrack
 ```
 
 ## Usage
 
 ```
-main.py [-h] [--min-length MIN_LENGTH] [--max-length MAX_LENGTH] [--verbose] file_path
+compressedcrack [-h] [--min-length MIN_LENGTH] [--max-length MAX_LENGTH] [--verbose] file_path
 
 Crack password-protected archives using brute force.
 
@@ -60,7 +61,7 @@ If no character types are selected, the script will use the combination of all d
 Crack a password-protected file `archive.zip` with a minimum password length of 3 characters, maximum password length of 5 characters, verbose output, and the custom character set is `abcdef12345`:
 
 ```
-python main.py --min-length 3 --max-length 5 --verbose archive.zip
+compressedcrack --min-length 3 --max-length 5 --verbose archive.zip
 ```
 
 ![Example](./assets/example.gif)
