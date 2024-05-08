@@ -5,7 +5,6 @@ import argparse
 import time
 import sys
 
-
 # Default Constants
 LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 NUMBERS = "0123456789"
