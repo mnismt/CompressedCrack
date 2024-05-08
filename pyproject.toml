@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "compressedcrack"
+version = "1.0.3"
+description = "A command-line tool to crack password-protected compressed files using brute force."
+readme = "README.md"
+authors = [{ name = "Minh Thanh", email = "thanhdoantranminh@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+]
+keywords = ["brute force", "password cracking", "compressed files"]
+dependencies = ["patool>=2.2.0"]
+requires-python = ">=3.6"
+
+[project.urls]
+"Homepage" = "https://github.com/mnismt/CompressedCrack"
+"Bug Tracker" = "https://github.com/mnismt/CompressedCrack/issues"
+
+[project.scripts]
+compressedcrack = "compressedcrack.main:main"
