@@ -2,6 +2,8 @@
 
 ![Banner](./assets/banner.png)
 
+[![](https://img.shields.io/badge/Chat_with_CompressedCrack-Ask_Cody-%238A16D7?labelColor=%23383838)](https://sourcegraph.com/github.com/mnismt/CompressedCrack)
+
 CompressedCrack is a command-line tool that utilizes the brute-force method to crack any password-protected compressed file. It generates password combinations based on user-defined character sets and length range, and attempts to extract the archive using each generated password until the correct password is found.
 
 ## Features
