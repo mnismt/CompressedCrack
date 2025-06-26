@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "compressedcrack"
-version = "1.0.3"
+version = "1.0.4"
 description = "A command-line tool to crack password-protected compressed files using brute force."
 readme = "README.md"
 authors = [{ name = "Minh Thanh", email = "thanhdoantranminh@gmail.com" }]
@@ -20,7 +20,7 @@ classifiers = [
   "Programming Language :: Python :: 3.9",
 ]
 keywords = ["brute force", "password cracking", "compressed files"]
-dependencies = ["patool>=2.2.0"]
+dependencies = ["patool>=2.2.0", "tqdm>=2.2.3"]
 requires-python = ">=3.6"
 
 [project.urls]
