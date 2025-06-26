@@ -15,9 +15,7 @@ NUMBERS = "0123456789"
 SPECIAL_CHARACTERS = "!@#$%^&*()-_+=~`[]{}|\\:;\"'<>,.?"
 
 # Define queue
-workers = 8
-queue_length = workers * 2
-q = queue.Queue(queue_length)
+q = queue.Queue()
 
 def worker():
     while True:
@@ -137,6 +135,8 @@ def main():
     parser.add_argument("-s", action=argparse.BooleanOptionalAction,
                         help=f"Use default special character set.")
     parser.add_argument("-c", help="Define character set to be used.")
+    parser.add_argument("-t", type=int, default=4,
+                        help="Set amount of threads running simultaneous.")
 
     args = parser.parse_args()
 
@@ -176,6 +176,9 @@ def main():
     overall_start_time = time.time()
     
     # Create threads
+    workers = args.t
+    queue_length = workers * 2
+    q = queue.Queue(queue_length)
     for i in range(0, workers-1):
         threading.Thread(target=worker, daemon=True).start()
     
