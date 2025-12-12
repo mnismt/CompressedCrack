@@ -5,11 +5,28 @@ import argparse
 import time
 import sys
 
+import threading
+import queue
+from tqdm import tqdm
+
 # Default Constants
 LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 NUMBERS = "0123456789"
 SPECIAL_CHARACTERS = "!@#$%^&*()-_+=~`[]{}|\\:;\"'<>,.?"
 
+# Define queue
+q = queue.Queue()
+
+def worker():
+    while True:
+        item = q.get()
+        if test_archive_password(item[0], item[1], item[2]):
+            tqdm.write(f"\nPassword is correct: {item[1]} ✅")
+            q.shutdown()
+        else:
+            pass
+            # tqdm.write(f"\nPassword is incorrect: {item[1]} ❌")
+        q.task_done()
 
 def test_archive_password(file_path, password, verbose):
     """
@@ -68,13 +85,18 @@ def brute_force_password(file_path, start_length, max_length, character_set, ver
                 f"\nGenerating passwords with length {length}...")
             print(
                 f"\nTotal passwords to be generated: {len(character_set) ** length}")
-        for password_tuple in product(character_set, repeat=length):
+        
+        total_combinations = len(character_set) ** length
+        for password_tuple in tqdm(product(character_set, repeat=length), 
+                                   total=total_combinations,
+                                   unit="passwords"):
             password = ''.join(password_tuple)
             password_count += 1
             total_password_count += 1
-            if test_archive_password(file_path, password, verbose):
-                print(f"\nPassword is correct: {password}")
-                return password, total_password_count, time.time() - start_time
+            
+            q.put([file_path, password, verbose])
+            
+            
         end_time = time.time()
         if verbose:
             print(
@@ -98,7 +120,7 @@ def main():
     Main function to parse command line arguments and initiate the brute force process.
     """
     parser = argparse.ArgumentParser(
-        description="Crack password-protected archives using brute force.")
+        description="Crack password-protected archives using brute force.",)
     parser.add_argument("file_path", help="Path to the compressed file.")
     parser.add_argument("--min-length", type=int, default=1,
                         help="Minimum password length.")
@@ -106,22 +128,45 @@ def main():
                         help="Maximum password length.")
     parser.add_argument("--verbose", action="store_true",
                         help="Increase output verbosity.")
+    parser.add_argument("-l", action=argparse.BooleanOptionalAction,
+                        help="Use default letters set.")
+    parser.add_argument("-n", action=argparse.BooleanOptionalAction,
+                        help="Use default numbers set.")
+    parser.add_argument("-s", action=argparse.BooleanOptionalAction,
+                        help=f"Use default special character set.")
+    parser.add_argument("-c", help="Define character set to be used.")
+    parser.add_argument("-t", type=int, default=4,
+                        help="Set amount of threads running simultaneous.")
 
     args = parser.parse_args()
 
    # Interactive character set definition with customization option
     character_set = ""
-    if input("Include letters? (y/n): ").lower().startswith('y'):
-        character_set += customize_character_set(LETTERS, "letters")
-    if input("Include numbers? (y/n): ").lower().startswith('y'):
-        character_set += customize_character_set(NUMBERS, "numbers")
-    if input("Include special characters? (y/n): ").lower().startswith('y'):
-        character_set += customize_character_set(
-            SPECIAL_CHARACTERS, "special characters")
+    if args.c:
+        character_set = args.c
+    else:
+        if args.l:
+            character_set += LETTERS
+        
+        if args.n:
+            character_set += NUMBERS
+
+        if args.s:
+            character_set += SPECIAL_CHARACTERS
 
     if not character_set:
-        print("\nNo characters selected. Using default character set.")
-        character_set = LETTERS + NUMBERS + SPECIAL_CHARACTERS
+        if input("Include letters? (y/n): ").lower().startswith('y'):
+            character_set += customize_character_set(LETTERS, "letters")
+        
+        if input("Include numbers? (y/n): ").lower().startswith('y'):
+            character_set += customize_character_set(NUMBERS, "numbers")
+        
+        if input("Include special characters? (y/n): ").lower().startswith('y'):
+            character_set += customize_character_set(
+                SPECIAL_CHARACTERS, "special characters")
+        if not character_set:
+            print("\nNo characters selected. Using default character set.")
+            character_set = LETTERS + NUMBERS + SPECIAL_CHARACTERS
 
     # Print the character set to be used
     print(f"\nCharacter set to be used: {character_set}")
@@ -129,6 +174,14 @@ def main():
         f"Total password combinations to be tried: {calculate_password_combinations(args.min_length, args.max_length, character_set)}")
 
     overall_start_time = time.time()
+    
+    # Create threads
+    workers = args.t
+    queue_length = workers * 2
+    q = queue.Queue(queue_length)
+    for i in range(0, workers-1):
+        threading.Thread(target=worker, daemon=True).start()
+    
     password, total_password_count, subset_time = brute_force_password(
         args.file_path, args.min_length, args.max_length, character_set, args.verbose)
     overall_end_time = time.time()

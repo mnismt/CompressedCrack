@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="compressedcrack",
-    version="1.0.3",
+    version="1.0.4",
     description="A command-line tool to crack password-protected compressed files using brute force.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
@@ -21,7 +21,7 @@ setup(
         "Programming Language :: Python :: 3.9",
     ],
     keywords=["brute force", "password cracking", "compressed files"],
-    install_requires=["patool>=2.2.0", "click"],
+    install_requires=["patool>=2.2.0", "tqdm>=2.2.3"],
     python_requires=">=3.6",
     entry_points={
         "console_scripts": [
